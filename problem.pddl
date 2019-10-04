@@ -56,6 +56,29 @@
         (is_board x5 y4)
         (is_board x5 y5)
         
+        (x_greater_than x2 x1)
+        (x_greater_than x3 x1)
+        (x_greater_than x4 x1)
+        (x_greater_than x5 x1)
+        (x_greater_than x3 x2)
+        (x_greater_than x4 x2)
+        (x_greater_than x5 x2)
+        (x_greater_than x4 x3)
+        (x_greater_than x5 x3)
+        (x_greater_than x5 x4)
+        
+        (y_greater_than y2 y1)
+        (y_greater_than y3 y1)
+        (y_greater_than y4 y1)
+        (y_greater_than y5 y1)
+        (y_greater_than y3 y2)
+        (y_greater_than y4 y2)
+        (y_greater_than y5 y2)
+        (y_greater_than y4 y3)
+        (y_greater_than y5 y3)
+        (y_greater_than y5 y4)
+        
+        
         ; Positions for each spacecrafter
         (at s_orange x1 y5)
         (not (is_empty x1 y5))
