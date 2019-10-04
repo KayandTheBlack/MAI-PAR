@@ -78,6 +78,23 @@
         (y_greater_than y5 y3)
         (y_greater_than y5 y4)
         
+        ; Boundary definitions
+        (is_boundary x1 y1)
+        (is_boundary x1 y2)
+        (is_boundary x1 y3)
+        (is_boundary x1 y4)
+        (is_boundary x1 y5)
+        (is_boundary x5 y1)
+        (is_boundary x5 y2)
+        (is_boundary x5 y3)
+        (is_boundary x5 y4)
+        (is_boundary x5 y5)
+        (is_boundary x2 y1)
+        (is_boundary x3 y1)
+        (is_boundary x4 y1)
+        (is_boundary x2 y5)
+        (is_boundary x3 y5)
+        (is_boundary x4 y5)
         
         ; Positions for each spacecrafter
         (at s_orange x1 y5)
