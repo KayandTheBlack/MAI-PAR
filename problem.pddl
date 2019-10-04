@@ -56,6 +56,15 @@
         (is_board x5 y4)
         (is_board x5 y5)
         
+        (x_one_greather_than x2 x1)
+        (x_one_greather_than x3 x2)
+        (x_one_greather_than x4 x3)
+        (x_one_greather_than x5 x4)
+        (y_one_greather_than y2 y1)
+        (y_one_greather_than y3 y2)
+        (y_one_greather_than y4 y3)
+        (y_one_greather_than y5 y4)
+        
         (x_greater_than x2 x1)
         (x_greater_than x3 x1)
         (x_greater_than x4 x1)
@@ -137,6 +146,9 @@
         (is_empty x5 y2)
         (is_empty x5 y3)
         (is_empty x5 y4)
+        
+        ; Adjacencies
+        
     )
     
     (:goal (at s_red x3 y3))
