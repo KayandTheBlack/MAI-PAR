@@ -66,10 +66,15 @@ class LunarLockoutDumper:
         self.add("  )")
 
 
-simple_problem = {
+p1 = {
     "board":(5,5),
     "spacecrafts":[(5,5),(1,5),(2,3),(3,2),(4,4)],
     "goal":(3,3)
 }
+p2 = {"board":(5,5),
+    "spacecrafts":[(1,1),(5,2),(4,4),(2,2),(1,4)],
+    "goal":(3,3)
+}
+simple_problem = p2
 problem = LunarLockoutDumper(simple_problem['board'], simple_problem['spacecrafts'], simple_problem['goal'])
 print(problem.generate())
