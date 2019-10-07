@@ -129,6 +129,10 @@ p3 = {"board":(5,5),
     "spacecrafts":[(1,1),(1,4),(1,2),(4,3)],
     "goal":(3,3)
 }
-simple_problem = p2
+p3T = {"board":(5,5),
+    "spacecrafts":[(1,1),(4,1),(2,1),(3,4)],
+    "goal":(3,3)
+}
+simple_problem = p3T
 problem = Domain2(simple_problem['board'], simple_problem['spacecrafts'], simple_problem['goal'])
 print(problem.generate())

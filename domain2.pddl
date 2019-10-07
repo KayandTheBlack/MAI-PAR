@@ -28,6 +28,13 @@
                     (just_less ?re ?rt)
                     (empty ?rt ?ci)
                     (not (empty ?re ?ci))
+                    (forall (?raux - gridindex)
+                      (not (and
+                        (not (empty ?raux ?ci))
+                        (less ?raux ?ri)
+                        (less ?rt ?raux)
+                      ))
+                    )
                   )
     :effect (and 
               (not (at ?sp ?ri ?ci))
@@ -44,6 +51,13 @@
                     (just_less ?rt ?re)
                     (empty ?rt ?ci)
                     (not (empty ?re ?ci))
+                    (forall (?raux - gridindex)
+                      (not (and
+                        (not (empty ?raux ?ci))
+                        (less ?ri ?raux)
+                        (less ?raux ?rt)
+                      ))
+                    )
                   )
     :effect (and 
               (not (at ?sp ?ri ?ci))
@@ -61,6 +75,13 @@
                     (just_less ?ce ?ct)
                     (empty ?ri ?ct)
                     (not (empty ?ri ?ce))
+                    (forall (?caux - gridindex)
+                      (not (and
+                        (not (empty ?ri ?caux))
+                        (less ?ct ?caux)
+                        (less ?caux ?ci)
+                      ))
+                    )
                   )
     :effect (and 
               (not (at ?sp ?ri ?ci))
@@ -77,6 +98,13 @@
                     (just_less ?ct ?ce)
                     (empty ?ri ?ct)
                     (not (empty ?ri ?ce))
+                    (forall (?caux - gridindex)
+                      (not (and
+                        (not (empty ?ri ?caux))
+                        (less ?caux ?ct)
+                        (less ?ci ?caux)
+                      ))
+                    )
                   )
     :effect (and 
               (not (at ?sp ?ri ?ci))
