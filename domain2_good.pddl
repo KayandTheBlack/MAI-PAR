@@ -28,6 +28,12 @@
                     (just_less ?re ?rt)
                     (empty ?rt ?ci)
                     (not (empty ?re ?ci))
+                    (forall (?raux - gridindex) ;For all rows, either they are outside the range of movement or their col of movement is empty
+                      (or (empty ?raux ?ci)
+                          (less ?raux ?rt) ; Above target
+                          (less ?ri ?raux) ; Below start
+                      )
+                    )
                   )
     :effect (and 
               (not (at ?sp ?ri ?ci))
@@ -44,6 +50,12 @@
                     (just_less ?rt ?re)
                     (empty ?rt ?ci)
                     (not (empty ?re ?ci))
+                    (forall (?raux - gridindex) ;For all rows, either they are outside the range of movement or their col of movement is empty
+                      (or (empty ?raux ?ci)
+                          (less ?rt ?raux) ; Below target
+                          (less ?raux ?ri) ; Above start
+                      )
+                    )
                   )
     :effect (and 
               (not (at ?sp ?ri ?ci))
@@ -61,6 +73,12 @@
                     (just_less ?ce ?ct)
                     (empty ?ri ?ct)
                     (not (empty ?ri ?ce))
+                    (forall (?caux - gridindex) ;For all columns, either they are outside the range of movement or their row of movement is empty
+                      (or (empty ?ri ?caux)
+                          (less ?caux ?ct) ; Left of target
+                          (less ?ci ?caux) ; Right of start
+                      )
+                    )
                   )
     :effect (and 
               (not (at ?sp ?ri ?ci))
@@ -77,6 +95,12 @@
                     (just_less ?ct ?ce)
                     (empty ?ri ?ct)
                     (not (empty ?ri ?ce))
+                    (forall (?caux - gridindex) ;For all columns, either they are outside the range of movement or their row of movement is empty
+                      (or (empty ?ri ?caux)
+                          (less ?ct ?caux) ; Right of target
+                          (less ?caux ?ci) ; Left of start
+                      )
+                    )
                   )
     :effect (and 
               (not (at ?sp ?ri ?ci))
