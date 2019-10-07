@@ -31,6 +31,7 @@ class Domain1(LunarLockoutDumper):
         self.print_obj()
         self.print_init()
         self.print_goal()
+        self.print_metric()
         self.add(")")
         return self.text
     
@@ -58,6 +59,7 @@ class Domain1(LunarLockoutDumper):
         ats = ["(at SP{} POS{}_{})".format(sp,r,c) for sp, (r,c) in enumerate(self.spacecraft_positions)]
         self.add('    ' + ''.join(ats))
         self.add('    (static)')
+        self.add('    (= (moves) 0)')
         self.add("  )")
 
     def print_goal(self):
@@ -67,6 +69,8 @@ class Domain1(LunarLockoutDumper):
         self.add("      (static)")
         self.add("    )")
         self.add("  )")
+    def print_metric(self):
+        self.add("  (:metric\n    minimize (moves)\n  )")
 
 class Domain2(LunarLockoutDumper):
     def generate(self):
@@ -134,5 +138,5 @@ p3T = {"board":(5,5),
     "goal":(3,3)
 }
 simple_problem = p3T
-problem = Domain2(simple_problem['board'], simple_problem['spacecrafts'], simple_problem['goal'])
+problem = Domain1(simple_problem['board'], simple_problem['spacecrafts'], simple_problem['goal'])
 print(problem.generate())
