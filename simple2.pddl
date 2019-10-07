@@ -27,11 +27,15 @@
     (empty POS1_2)(empty POS1_3)(empty POS1_5)(empty POS2_1)(empty POS2_3)(empty POS2_4)(empty POS2_5)(empty POS3_1)(empty POS3_2)(empty POS3_3)(empty POS3_4)(empty POS3_5)(empty POS4_1)(empty POS4_2)(empty POS4_3)(empty POS4_5)(empty POS5_1)(empty POS5_3)(empty POS5_4)(empty POS5_5)
     (at SP0 POS1_1)(at SP1 POS5_2)(at SP2 POS4_4)(at SP3 POS2_2)(at SP4 POS1_4)
     (static)
+    (= (moves) 0)
   )
   (:goal
     (and
       (at SP0 POS3_3)
       (static)
     )
+  )
+  (:metric
+    minimize (moves)
   )
 )

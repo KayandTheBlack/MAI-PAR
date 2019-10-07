@@ -1,5 +1,5 @@
 ﻿(define (domain lunarlockoutdynamic)
-  (:requirements :strips :adl :typing)
+  (:requirements :strips :adl :typing :fluents)
   (:types
     position - object
     spacecraft - object
@@ -15,6 +15,9 @@
     (movingright ?sp - spacecraft)
     (static)
   )
+  (:functions
+    (moves)
+  )
   ; Each direction has 3 separate actions, one to start moving a spacecraft, one for moving it and one for stopping to move it.
   ; Starting movement is only allowed when no spacecraft is moving, AKA: board is static.
   ; Moving is only allowed when the spacecraft is moving in that direction AND the next spot is empty
@@ -27,6 +30,7 @@
     :effect (and 
               (movingup ?sp)
               (not (static))
+              (increase (moves) 1)
             )
   )
   (:action moveup
@@ -64,6 +68,7 @@
     :effect (and 
               (movingdown ?sp)
               (not (static))
+              (increase (moves) 1)
             )
   )
   (:action movedown
@@ -101,6 +106,7 @@
     :effect (and 
               (movingleft ?sp)
               (not (static))
+              (increase (moves) 1)
             )
   )
   (:action moveleft
@@ -138,6 +144,7 @@
     :effect (and 
               (movingright ?sp)
               (not (static))
+              (increase (moves) 1)
             )
   )
   (:action moveright

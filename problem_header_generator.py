@@ -2,6 +2,7 @@
 
 
 class LunarLockoutDumper:
+    metric = True
     def __init__(self, board_size, spacecraft_positions, goal_position):
         self.board_size = board_size
         self.spacecraft_positions = spacecraft_positions
@@ -28,6 +29,8 @@ class LunarLockoutDumper:
         self.print_obj()
         self.print_init()
         self.print_goal()
+        if self.metric:
+            self.print_metric()
         self.add(")")
         return self.text
     
@@ -55,6 +58,8 @@ class LunarLockoutDumper:
         ats = ["(at SP{} POS{}_{})".format(sp,r,c) for sp, (r,c) in enumerate(self.spacecraft_positions)]
         self.add('    ' + ''.join(ats))
         self.add('    (static)')
+        if self.metric:
+            self.add('    (= (moves) 0)')
         self.add("  )")
 
     def print_goal(self):
@@ -64,6 +69,8 @@ class LunarLockoutDumper:
         self.add("      (static)")
         self.add("    )")
         self.add("  )")
+    def print_metric(self):
+        self.add("  (:metric\n    minimize (moves)\n  )")
 
 
 p1 = {
@@ -75,6 +82,6 @@ p2 = {"board":(5,5),
     "spacecrafts":[(1,1),(5,2),(4,4),(2,2),(1,4)],
     "goal":(3,3)
 }
-simple_problem = p2
+simple_problem = p1
 problem = LunarLockoutDumper(simple_problem['board'], simple_problem['spacecrafts'], simple_problem['goal'])
 print(problem.generate())
