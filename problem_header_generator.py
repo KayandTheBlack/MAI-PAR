@@ -21,6 +21,9 @@ class LunarLockoutDumper:
             self.add(';  '+''.join(row))
         self.add('; Goal is at {},{}, in case a spacecraft is on top.'.format(self.goal_position[0], self.goal_position[1]))
         self.add(';')
+
+
+class Domain1(LunarLockoutDumper):
     def generate(self):
         self.print_game_look()
         self.add("(define (problem dynamic1)")
@@ -65,6 +68,53 @@ class LunarLockoutDumper:
         self.add("    )")
         self.add("  )")
 
+class Domain2(LunarLockoutDumper):
+    def generate(self):
+        self.print_game_look()
+        self.add("(define (problem static1)")
+        self.add("  (:domain lunarlockoutstatic)")
+        self.print_obj()
+        self.print_init()
+        self.print_goal()
+        self.add(")")
+        return self.text
+    
+    def print_obj(self):
+        self.add("  (:objects")
+        self.max_side = max(self.board_size[0],self.board_size[0])
+        positions = ['i{}'.format(i) for i in range(self.max_side+2)]
+        self.add("    "+' '.join(positions)+' - gridindex')
+        spacecrafts = ['SP{}'.format(i) for i in range(len(self.spacecraft_positions))]
+        self.add("    "+' '.join(spacecrafts) + ' - spacecraft')
+        self.add("  )")
+
+    def print_init(self):
+        self.add("  (:init")
+        # Position relationship
+        # Just_Less
+        preds = ["(just_less i{} i{})".format(i, i+1) for i in range(self.max_side+1)]
+        self.add('    ' + ''.join(preds))
+        # Less
+        preds = []
+        for i in range(self.max_side+1):
+            preds += ['(less i{} i{})'.format(i, j) for j in range(i+1, self.max_side+2)]
+        self.add('    ' + ''.join(preds))
+        # Position emptiness
+        empties = ["(empty i{} i{})".format(row, col) for row in range(1,self.board_size[0]+1) for col in range(1,self.board_size[1]+1) if (row,col) not in self.spacecraft_positions]
+        self.add('    ' + ''.join(empties))
+        # Spacecraft ats
+        ats = ["(at SP{} i{} i{})".format(sp,r,c) for sp, (r,c) in enumerate(self.spacecraft_positions)]
+        self.add('    ' + ''.join(ats))
+        self.add("  )")
+
+    def print_goal(self):
+        self.add("  (:goal")
+        self.add("    (at SP0 i{} i{})".format(self.goal_position[0],self.goal_position[1]))
+        self.add("  )")
+
+
+
+
 
 p1 = {
     "board":(5,5),
@@ -75,6 +125,6 @@ p2 = {"board":(5,5),
     "spacecrafts":[(1,1),(5,2),(4,4),(2,2),(1,4)],
     "goal":(3,3)
 }
-simple_problem = p2
-problem = LunarLockoutDumper(simple_problem['board'], simple_problem['spacecrafts'], simple_problem['goal'])
+simple_problem = p1
+problem = Domain2(simple_problem['board'], simple_problem['spacecrafts'], simple_problem['goal'])
 print(problem.generate())
