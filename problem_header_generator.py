@@ -37,7 +37,7 @@ class Domain1(LunarLockoutDumper):
     
     def print_obj(self):
         self.add("  (:objects")
-        positions = ['POS{}_{}'.format(i,j) for i in range(self.board_size[0]+2) for j in range(self.board_size[1]+2)]
+        positions = ['POS{}_{}'.format(i+1,j+1) for i in range(self.board_size[0]) for j in range(self.board_size[1])]
         self.add("    "+' '.join(positions)+' - position')
         spacecrafts = ['SP{}'.format(i) for i in range(len(self.spacecraft_positions))]
         self.add("    "+' '.join(spacecrafts) + ' - spacecraft')
@@ -47,10 +47,10 @@ class Domain1(LunarLockoutDumper):
         self.add("  (:init")
         # Position relationship
         for row in range(1,self.board_size[0]+1):
-            preds = ["(just_left_of POS{}_{} POS{}_{})".format(row, col, row, col+1) for col in range(self.board_size[1]+1)]
+            preds = ["(just_left_of POS{}_{} POS{}_{})".format(row, col, row, col+1) for col in range(1, self.board_size[1])]
             self.add('    ' + ''.join(preds))
         for col in range(1,self.board_size[1]+1):
-            preds = ["(just_above_of POS{}_{} POS{}_{})".format(row, col, row+1, col) for row in range(self.board_size[0]+1)]
+            preds = ["(just_above_of POS{}_{} POS{}_{})".format(row, col, row+1, col) for row in range(1, self.board_size[0])]
             self.add('    ' + ''.join(preds))
         # Position emptiness
         empties = ["(empty POS{}_{})".format(row, col) for row in range(1,self.board_size[0]+1) for col in range(1,self.board_size[1]+1) if (row,col) not in self.spacecraft_positions]
@@ -86,7 +86,7 @@ class Domain2(LunarLockoutDumper):
     def print_obj(self):
         self.add("  (:objects")
         self.max_side = max(self.board_size[0],self.board_size[0])
-        positions = ['i{}'.format(i) for i in range(self.max_side+2)]
+        positions = ['i{}'.format(i) for i in range(1, self.max_side+1)]
         self.add("    "+' '.join(positions)+' - gridindex')
         spacecrafts = ['SP{}'.format(i) for i in range(len(self.spacecraft_positions))]
         self.add("    "+' '.join(spacecrafts) + ' - spacecraft')
@@ -96,12 +96,12 @@ class Domain2(LunarLockoutDumper):
         self.add("  (:init")
         # Position relationship
         # Just_Less
-        preds = ["(just_less i{} i{})".format(i, i+1) for i in range(self.max_side+1)]
+        preds = ["(just_less i{} i{})".format(i, i+1) for i in range(1, self.max_side)]
         self.add('    ' + ''.join(preds))
         # Less
         preds = []
-        for i in range(self.max_side+1):
-            preds += ['(less i{} i{})'.format(i, j) for j in range(i+1, self.max_side+2)]
+        for i in range(1, self.max_side):
+            preds += ['(less i{} i{})'.format(i, j) for j in range(i+1, self.max_side+1)]
         self.add('    ' + ''.join(preds))
         # Position emptiness
         empties = ["(empty i{} i{})".format(row, col) for row in range(1,self.board_size[0]+1) for col in range(1,self.board_size[1]+1) if (row,col) not in self.spacecraft_positions]
@@ -130,13 +130,13 @@ p2 = {"board":(5,5),
     "goal":(3,3)
 }
 p3 = {"board":(5,5),
-    "spacecrafts":[(1,1),(1,4),(1,2),(4,3)],
+    "spacecrafts":[(1,1),(1,4),(1,2),(4,3),(4,2)],
     "goal":(3,3)
 }
 p3T = {"board":(5,5),
-    "spacecrafts":[(1,1),(4,1),(2,1),(3,4)],
+    "spacecrafts":[(1,1),(4,1),(2,1),(3,4),(2,4)],
     "goal":(3,3)
 }
 simple_problem = p3T
-problem = Domain1(simple_problem['board'], simple_problem['spacecrafts'], simple_problem['goal'])
+problem = Domain2(simple_problem['board'], simple_problem['spacecrafts'], simple_problem['goal'])
 print(problem.generate())
