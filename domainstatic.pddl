@@ -18,8 +18,7 @@
   ;   The position of the same column but just_less than the target position needs to be non-empty
   ;   All positions of the same column whose row is less than the spacecraft but target position row 
   ;       is less than them need to be empty.
-  ;  For other predicates it will be the same, but interchanging rows and columns for horisontality and the less parameters for switching movement direction.
-  ; For simplicity, we consider the edges of our board as non-empty positions, which can be used to stop movement.
+  ;  For other predicates it will be the same, but interchanging rows and columns for horizontality and the less parameters for switching movement direction.
   (:action moveup
     :parameters (?sp - spacecraft ?ri - gridindex ?ci - gridindex ?rt - gridindex ?re -gridindex) ; read as row ini, col ini, row target, row extra (limit)
     :precondition (and
